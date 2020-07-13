@@ -46,11 +46,6 @@
             ></v-slider>
           </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="10" sm="6" class="pa-0">
-            <v-switch label="音"></v-switch>
-          </v-col>
-        </v-row>
       </v-container>
     </v-main>
   </v-app>
