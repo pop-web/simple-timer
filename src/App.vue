@@ -48,7 +48,7 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="10" sm="6" class="pa-0">
-            <v-switch label="音"></v-switch>
+            <v-switch label="アラーム音"></v-switch>
           </v-col>
         </v-row>
       </v-container>
@@ -57,7 +57,9 @@
 </template>
 
 <script>
+import completeAlertSound from "./mixin/completeAlertSound";
 export default {
+  mixins: [completeAlertSound],
   data() {
     return {
       intervalId: null,
@@ -96,7 +98,7 @@ export default {
           this.totalSec--;
         } else {
           this.resetTimer();
-          alert("Complete!");
+          this.soundPlay();
         }
       }, 1000);
     },
