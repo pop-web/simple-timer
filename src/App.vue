@@ -3,11 +3,21 @@
     <v-main>
       <v-container>
         <v-row class="text-center">
-          <v-col cols="12" class="text-h1 font-weight-black">
+          <v-col
+            cols="12"
+            class="text-h1 font-weight-black"
+            :class="{ 'red--text': isComplete }"
+          >
             {{ min }}:{{ sec }}
           </v-col>
           <v-col cols="12">
-            <v-btn v-if="!playing" fab large @click="startTimer">
+            <v-btn
+              v-if="!playing"
+              fab
+              large
+              color="primary"
+              @click="startTimer"
+            >
               <v-icon>mdi-play</v-icon>
             </v-btn>
             <v-btn v-if="playing" fab large @click="stopTimer">
@@ -47,9 +57,11 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <v-col cols="10" sm="6" class="pa-0">
-            <v-switch label="アラーム音"></v-switch>
-          </v-col>
+          <v-switch
+            v-model="alartSound"
+            label="アラーム音"
+            class="ma-0"
+          ></v-switch>
         </v-row>
       </v-container>
     </v-main>
@@ -67,6 +79,8 @@ export default {
       minTime: null,
       secTime: null,
       playing: false,
+      alartSound: false,
+      isComplete: false,
     };
   },
   computed: {
@@ -83,22 +97,43 @@ export default {
   },
   watch: {
     minTime() {
+      // 終了フラグOFF
+      if (this.isComplete) this.isComplete = false;
       this.totalSec = this.secTime + this.minTime * 60;
     },
     secTime() {
+      // 終了フラグOFF
+      if (this.isComplete) this.isComplete = false;
       this.totalSec = this.secTime + this.minTime * 60;
     },
+  },
+  mounted() {
+    // localStorageから以前設定した値を取得/設定
+    if (localStorage.totalSec) {
+      this.minTime = Math.floor(localStorage.totalSec / 60);
+      this.secTime = localStorage.totalSec - this.minTime * 60;
+    }
+    // pagetitle設定
+    document.title = "シンプルタイマー";
   },
   methods: {
     startTimer() {
       if (!this.totalSec) return;
+      // ローカルストレージに保存
+      localStorage.totalSec = this.totalSec;
+      // 再生中フラグON
       this.playing = true;
+      // 終了フラグOFF
+      this.isComplete = false;
+      // タイマー開始
       this.intervalId = setInterval(() => {
         if (this.totalSec >= 1) {
           this.totalSec--;
         } else {
           this.resetTimer();
-          this.soundPlay();
+          this.isComplete = true;
+          this.totalSec = localStorage.totalSec;
+          if (this.alartSound) this.soundPlay();
         }
       }, 1000);
     },
@@ -111,6 +146,7 @@ export default {
       clearInterval(this.intervalId);
       this.playing = false;
       this.totalSec = null;
+      this.isComplete = false;
     },
     zeroPadding(val) {
       return ("0" + val).slice(-2);
