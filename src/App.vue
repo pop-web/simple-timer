@@ -74,12 +74,13 @@ export default {
   mixins: [completeAlertSound],
   data() {
     return {
-      intervalId: null,
+      timerIntervalId: null,
+      soundIntervalId: null,
       totalSec: null,
       minTime: null,
       secTime: null,
       playing: false,
-      alartSound: false,
+      alartSound: true,
       isComplete: false,
     };
   },
@@ -97,13 +98,13 @@ export default {
   },
   watch: {
     minTime() {
-      // 終了フラグOFF
-      if (this.isComplete) this.isComplete = false;
+      // リセットする
+      if (this.isComplete) this.resetTimer();
       this.totalSec = this.secTime + this.minTime * 60;
     },
     secTime() {
-      // 終了フラグOFF
-      if (this.isComplete) this.isComplete = false;
+      // リセットする
+      if (this.isComplete) this.resetTimer();
       this.totalSec = this.secTime + this.minTime * 60;
     },
   },
@@ -126,24 +127,24 @@ export default {
       // 終了フラグOFF
       this.isComplete = false;
       // タイマー開始
-      this.intervalId = setInterval(() => {
+      this.timerIntervalId = setInterval(() => {
         if (this.totalSec >= 1) {
           this.totalSec--;
         } else {
           this.resetTimer();
           this.isComplete = true;
-          this.totalSec = localStorage.totalSec;
-          if (this.alartSound) this.soundPlay();
+          if (this.alartSound) this.soundIntervalId = this.soundPlay();
         }
       }, 1000);
     },
     stopTimer() {
-      clearInterval(this.intervalId);
+      clearInterval(this.timerIntervalId);
       this.playing = false;
-      this.intervalId = null;
+      this.timerIntervalId = null;
     },
     resetTimer() {
-      clearInterval(this.intervalId);
+      clearInterval(this.timerIntervalId);
+      clearInterval(this.soundIntervalId);
       this.playing = false;
       this.totalSec = null;
       this.isComplete = false;
