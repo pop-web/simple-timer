@@ -205,6 +205,7 @@ export default {
     },
     setMinTime(val) {
       this.minTime = val;
+      this.secTime = null;
     },
   },
 };
