@@ -12,7 +12,7 @@
           </v-col>
           <v-col cols="12">
             <v-btn
-              v-if="!playing"
+              v-if="!playing && !isComplete"
               fab
               large
               color="primary"
@@ -20,8 +20,24 @@
             >
               <v-icon>mdi-play</v-icon>
             </v-btn>
-            <v-btn v-if="playing" fab large @click="stopTimer">
+            <v-btn
+              v-if="playing && !isComplete"
+              fab
+              large
+              class="white--text"
+              color="blue-grey"
+              @click="stopTimer"
+            >
               <v-icon dense>mdi-stop</v-icon>
+            </v-btn>
+            <v-btn
+              v-if="isComplete"
+              fab
+              large
+              color="error"
+              @click="completeTimer"
+            >
+              <v-icon dense>mdi-check-bold</v-icon>
             </v-btn>
           </v-col>
           <v-col cols="12">
@@ -80,7 +96,7 @@ export default {
       minTime: null,
       secTime: null,
       playing: false,
-      alartSound: true,
+      alartSound: false,
       isComplete: false,
     };
   },
@@ -148,6 +164,15 @@ export default {
       this.playing = false;
       this.totalSec = null;
       this.isComplete = false;
+    },
+    completeTimer() {
+      clearInterval(this.timerIntervalId);
+      clearInterval(this.soundIntervalId);
+      this.playing = false;
+      this.totalSec = null;
+      this.isComplete = false;
+      // startTimer実行時の値を代入
+      this.totalSec = localStorage.totalSec;
     },
     zeroPadding(val) {
       return ("0" + val).slice(-2);
