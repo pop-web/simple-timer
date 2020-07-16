@@ -114,22 +114,14 @@ export default {
   },
   watch: {
     minTime() {
-      // リセットする
-      if (this.isComplete) this.resetTimer();
       this.totalSec = this.secTime + this.minTime * 60;
     },
     secTime() {
-      // リセットする
-      if (this.isComplete) this.resetTimer();
       this.totalSec = this.secTime + this.minTime * 60;
     },
   },
   mounted() {
-    // localStorageから以前設定した値を取得/設定
-    if (localStorage.totalSec) {
-      this.minTime = Math.floor(localStorage.totalSec / 60);
-      this.secTime = localStorage.totalSec - this.minTime * 60;
-    }
+    this.initData();
     // pagetitle設定
     document.title = "シンプルタイマー";
   },
@@ -163,6 +155,8 @@ export default {
       clearInterval(this.soundIntervalId);
       this.playing = false;
       this.totalSec = null;
+      this.minTime = null;
+      this.secTime = null;
       this.isComplete = false;
     },
     completeTimer() {
@@ -172,10 +166,17 @@ export default {
       this.totalSec = null;
       this.isComplete = false;
       // startTimer実行時の値を代入
-      this.totalSec = localStorage.totalSec;
+      this.initData();
     },
     zeroPadding(val) {
       return ("0" + val).slice(-2);
+    },
+    initData() {
+      // localStorageから以前設定した値を取得/設定
+      if (localStorage.totalSec) {
+        this.minTime = Math.floor(localStorage.totalSec / 60);
+        this.secTime = localStorage.totalSec - this.minTime * 60;
+      }
     },
   },
 };
