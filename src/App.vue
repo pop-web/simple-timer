@@ -25,7 +25,7 @@
               fab
               large
               class="white--text"
-              color="blue-grey"
+              color="secondary"
               @click="stopTimer"
             >
               <v-icon dense>mdi-stop</v-icon>
@@ -73,6 +73,31 @@
           </v-col>
         </v-row>
         <v-row justify="center">
+          <v-col cols="10" sm="6" class="pa-0">
+            <v-btn-toggle
+              borderless
+              color="primary"
+              class="d-flex justify-center"
+            >
+              <v-btn @click="setMinTime(1)">
+                1分
+              </v-btn>
+              <v-btn @click="setMinTime(3)">
+                3分
+              </v-btn>
+              <v-btn @click="setMinTime(5)">
+                5分
+              </v-btn>
+              <v-btn @click="setMinTime(10)">
+                10分
+              </v-btn>
+              <v-btn @click="setMinTime(15)">
+                15分
+              </v-btn>
+            </v-btn-toggle>
+          </v-col>
+        </v-row>
+        <v-row class="mt-5" justify="center">
           <v-switch
             v-model="alartSound"
             label="アラーム音"
@@ -178,13 +203,16 @@ export default {
         this.secTime = localStorage.totalSec - this.minTime * 60;
       }
     },
+    setMinTime(val) {
+      this.minTime = val;
+    },
   },
 };
 </script>
 <style lang="stylus">
 .container
   position: absolute
-  top: 25%
+  top: 20%
   right: 0
   bottom: 0
   left: 0
