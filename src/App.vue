@@ -154,7 +154,7 @@ export default {
     startTimer() {
       if (!this.totalSec) return;
       // ローカルストレージに保存
-      localStorage.totalSec = this.totalSec;
+      sessionStorage.setItem("totalSec", this.totalSec);
       // 再生中フラグON
       this.playing = true;
       // 終了フラグOFF
@@ -198,9 +198,9 @@ export default {
     },
     initData() {
       // localStorageから以前設定した値を取得/設定
-      if (localStorage.totalSec) {
-        this.minTime = Math.floor(localStorage.totalSec / 60);
-        this.secTime = localStorage.totalSec - this.minTime * 60;
+      if (sessionStorage.getItem("totalSec")) {
+        this.minTime = Math.floor(sessionStorage.getItem("totalSec") / 60);
+        this.secTime = sessionStorage.getItem("totalSec") - this.minTime * 60;
       }
     },
     setMinTime(val) {
