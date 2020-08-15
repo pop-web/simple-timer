@@ -1,12 +1,12 @@
-# simple-timer
+<div align="center">
+<img src="https://user-images.githubusercontent.com/68140953/90313919-1836b080-df4b-11ea-8600-5752d4fd5a9e.gif">
+</div>
 
-![simpletimer](https://user-images.githubusercontent.com/68140953/90313756-0274bb80-df4a-11ea-99d7-71cb262d3c47.gif)
+## 🌐 App URL
 
-## App URL
+### **https://timer.popweb.dev/**
 
-https://timer.popweb.dev/
-
-### Usage
+### 💬 Usage
 
 ```
 $ git cloen https://github.com/pop-web/simple-timer.git
