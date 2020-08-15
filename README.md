@@ -1,24 +1,13 @@
 # simple-timer
 
-## Project setup
-```
-npm install
-```
+![simpletimer](https://user-images.githubusercontent.com/68140953/90313756-0274bb80-df4a-11ea-99d7-71cb262d3c47.gif)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## App URL
 
-### Compiles and minifies for production
-```
-npm run build
-```
+https://timer.popweb.dev/
 
-### Lints and fixes files
-```
-npm run lint
-```
+### Usage
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```
+$ git cloen https://github.com/pop-web/simple-timer.git
+```
