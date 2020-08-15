@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://user-images.githubusercontent.com/68140953/90313919-1836b080-df4b-11ea-8600-5752d4fd5a9e.gif">
+<img src="https://user-images.githubusercontent.com/68140953/90314151-7dd76c80-df4c-11ea-97a6-8c37fb98e9d0.gif">
 </div>
 
 ## 🌐 App URL
