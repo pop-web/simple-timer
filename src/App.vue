@@ -139,10 +139,10 @@ export default {
   },
   watch: {
     minTime() {
-      this.totalSec = this.secTime + this.minTime * 60;
+      this.changeSlider();
     },
     secTime() {
-      this.totalSec = this.secTime + this.minTime * 60;
+      this.changeSlider();
     },
   },
   mounted() {
@@ -153,8 +153,6 @@ export default {
   methods: {
     startTimer() {
       if (!this.totalSec) return;
-      // ローカルストレージに保存
-      sessionStorage.setItem("totalSec", this.totalSec);
       // 再生中フラグON
       this.playing = true;
       // 終了フラグOFF
@@ -203,6 +201,15 @@ export default {
         this.secTime = sessionStorage.getItem("totalSec") - this.minTime * 60;
       }
     },
+    // スライダーの変化時の共通処理、watch監視している
+    changeSlider() {
+      this.totalSec = this.secTime + this.minTime * 60;
+      // ローカルストレージに設定した時間を保存
+      sessionStorage.setItem("totalSec", this.totalSec);
+      // 完了後、スライドを変化させた時は完了フラグをfalseに
+      if (this.totalSec !== 0) this.isComplete = false;
+    },
+    // 1~15分ボタン
     setMinTime(val) {
       this.minTime = val;
       this.secTime = null;
