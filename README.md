@@ -5,3 +5,7 @@
 ## 🌐 App URL
 
 ### **https://timer.popweb.dev/**
+
+##  ✏️  Usage
+```
+git clone https://github.com/pop-web/simple-timer.git
